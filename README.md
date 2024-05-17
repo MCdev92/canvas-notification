@@ -15,14 +15,14 @@ This project is a Python-based notification system designed to fetch upcoming as
 ## Setup
 1. Clone the repo:
 git clone https://github.com/MCdev92/canvas-notification.git
-cd canvas-notification
+    ~cd canvas-notification
 2. Create a virtual environment and activate it
-python3 -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 3. Install the required pachages:
-pip install requests schedule plyer python-dotenv
+    ~pip install requests schedule plyer python-dotenv
 4. Create a .env file in the project root and add your environment variables:
-touch .env
+    ~touch .env
 
 Add the following lines to the .env file:
 * EMAIL_USER="your_email@gmail.com"
