@@ -14,7 +14,7 @@ This project is a Python-based notification system designed to fetch upcoming as
 
 ## Setup
 1. Clone the repo:
-git clone https://github.com/yourusername/canvas-notification.git
+git clone https://github.com/MCdev92/canvas-notification.git
 cd canvas-notification
 2. Create a virtual environment and activate it
 python3 -m venv venv
