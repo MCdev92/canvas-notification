@@ -47,7 +47,7 @@ def get_weekly_assignments():
         response = requests.get(assignments_url, headers=headers)
         assignments = response.json()
         
-        # chech if assignment has a "due_at" date
+        # check if assignment has a "due_at" date
         for assignment in assignments:
             if "due_at" in assignment and assignment["due_at"]:
                 due_date = datetime.datetime.strptime(assignment["due_at"], '%Y-%m-%dT%H:%M:%SZ')
@@ -97,7 +97,7 @@ def send_email(subject, body):
     server.quit()
 
 # Schedule the task to run weekly
-schedule.every().day.at("05:00").do(notify_upcoming_assignments)
+schedule.every().day.at("07:00").do(notify_upcoming_assignments)
 
 # Initial call to fetch and display assignments
 notify_upcoming_assignments()
