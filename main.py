@@ -129,14 +129,6 @@ def send_email(subject, body):
     server.sendmail(EMAIL_USER, RECIPIENT_EMAIL, msg.as_string())
     server.quit()
 
-# Schedule the task to run weekly
-# schedule.every().day.at("07:00").do(notify_upcoming_assignments)
-
 # Initial call to fetch and display assignments
 notify_upcoming_assignments()
 
-# Keep the script running to check the schedule
-while True:
-    schedule.run_pending()
-    time.sleep(1)
-    
