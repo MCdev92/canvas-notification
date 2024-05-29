@@ -118,7 +118,7 @@ def notify_upcoming_assignments():
 
 def send_email(subject, body):
     msg = MIMEMultipart()
-    msg['From'] = EMAIL_USER
+    msg['From'] = "Canvas Daily Notification <" + EMAIL_USER + ">"
     msg['To'] = RECIPIENT_EMAIL
     msg['Subject'] = subject
     msg.attach(MIMEText(body, 'html'))
