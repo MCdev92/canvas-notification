@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 from plyer import notification
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from pytz import timezone, utc
 
 
 # Load environment variables from .env file
@@ -28,6 +29,9 @@ EMAIL_USER = os.environ.get('EMAIL_USER')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL')
 
+# Define the time zone for Canvas and your local time zone
+canvas_tz = utc
+local_tz = timezone('America/Los_Angeles')  # Change to your local time zone
 
 def get_weekly_assignments():
     # Define the endpoint for fetching courses
@@ -50,8 +54,9 @@ def get_weekly_assignments():
         # check if assignment has a "due_at" date
         for assignment in assignments:
             if "due_at" in assignment and assignment["due_at"]:
-                due_date = datetime.datetime.strptime(assignment["due_at"], '%Y-%m-%dT%H:%M:%SZ')
-                now = datetime.datetime.utcnow()
+                due_date = datetime.datetime.strptime(assignment["due_at"], '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=utc)
+                due_date = due_date.astimezone(local_tz) # convert to local time zone
+                now = datetime.datetime.now(local_tz)
                 one_week = datetime.timedelta(weeks=1)
                 if now <= due_date <= now + one_week:
                     due_assignments.append({
@@ -86,10 +91,17 @@ def notify_upcoming_assignments():
         <ul>
         """
         for assignment in assignments:
-            email_body += f"<li><strong>Course:</strong> {assignment['course']}, <strong>Assignment:</strong> {assignment['name']}, <strong>Due:</strong> {format_due_date(assignment['due_at'])}</li>"
+            email_body += f"<li><strong>Course:</strong> {assignment['course']}</li><br><li><strong>Assignment:</strong> {assignment['name']}</li><br><li><strong>Due:</strong> {format_due_date(assignment['due_at'])}</li>"
         email_body += """
         </ul>
         <p>Best regards,<br>Your Course Management System</p>
+        <br>
+        <footer>
+        <small>Developed by Manuel Corporan
+        </small>
+        <br>
+        <small>Copyright © 2024 Mcdev92. All rights reserved.
+        </footer>
         </body>
         </html>
         """    
