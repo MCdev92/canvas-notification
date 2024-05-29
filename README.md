@@ -35,12 +35,12 @@ Add the following lines to the .env file:
 
 # Future Enhancements 
 * Add error handling for API requests.
-* Improve email formatting.
+* Improve email formatting. ✅
 * Add desktop notifications using the plyer library.
 * Extend the script to handle other Canvas API endpoints (e.g., grades, announcements).
 
 # Demo
-* Coming soon!
+![alt text](cn.gif)
 
 
 
