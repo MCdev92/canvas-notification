@@ -61,6 +61,9 @@ def get_weekly_assignments():
                     })
     return due_assignments
 
+def format_due_date(due_date):
+    return due_date.strftime('%A, %B %d, %Y at %I:%M %p')
+
 def print_upcoming_assignments():
     # print the upcoming assignments
     assignments = get_weekly_assignments()
@@ -76,12 +79,30 @@ def notify_upcoming_assignments():
     assignments = get_weekly_assignments()
     if assignments:
         email_subject = "Upcoming Assignments Due This Week"
-        email_body = "&lt;h1&gt;Upcoming Assignments Due This Week:&lt;/h1&gt;"
+        email_body = """
+        <html>
+        <body>
+        <h1>Upcoming Assignments Due This Week:</h1>
+        <ul>
+        """
         for assignment in assignments:
-            email_body += f"&lt;p&gt;Course: {assignment['course']}, Assignment: {assignment['name']}, Due: {assignment['due_at']}&lt;/p&gt;"
+            email_body += f"<li><strong>Course:</strong> {assignment['course']}, <strong>Assignment:</strong> {assignment['name']}, <strong>Due:</strong> {format_due_date(assignment['due_at'])}</li>"
+        email_body += """
+        </ul>
+        <p>Best regards,<br>Your Course Management System</p>
+        </body>
+        </html>
+        """    
         send_email(email_subject, email_body)
     else:
-        send_email("No Assignments Due This Week", "No assignments due this week.")
+        send_email("No Assignments Due This Week", """
+        <html>
+        <body>
+        <p>No assignments due this week.</p>
+        <p>Best regards,<br>Your Course Management System</p>
+        </body>
+        </html>
+        """)
 
 def send_email(subject, body):
     msg = MIMEMultipart()
@@ -97,7 +118,7 @@ def send_email(subject, body):
     server.quit()
 
 # Schedule the task to run weekly
-schedule.every().day.at("07:00").do(notify_upcoming_assignments)
+# schedule.every().day.at("07:00").do(notify_upcoming_assignments)
 
 # Initial call to fetch and display assignments
 notify_upcoming_assignments()
