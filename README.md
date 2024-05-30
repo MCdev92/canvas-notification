@@ -34,7 +34,7 @@ Add the following lines to the .env file:
 * Email Not Sent: Check your email configuration and ensure that your email account allows less secure apps if using Gmail. Alternatively, consider using an app-specific password.
 
 # Future Enhancements 
-* Add error handling for API requests.
+* Add error handling for API requests.✅
 * Improve email formatting. ✅
 * Add desktop notifications using the plyer library.
 * Extend the script to handle other Canvas API endpoints (e.g., grades, announcements).
