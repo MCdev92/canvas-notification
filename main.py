@@ -112,16 +112,22 @@ def notify_upcoming_assignments():
             <ul>
             """
             for assignment in assignments:
-                email_body += f"<li><strong>Course:</strong> {assignment['course']}</li><br><li><strong>Assignment:</strong> {assignment['name']}</li><br><li><strong>Due:</strong> {format_due_date(assignment['due_at'])}</li>"
+                email_body += f"""
+                <li>
+                    <strong>Course:</strong> {assignment['course']}<br>
+                    <strong>Assignment:</strong> {assignment['name']}<br>
+                    <strong>Due:</strong> {format_due_date(assignment['due_at'])}
+                </li>
+                <br><br>
+                """
             email_body += """
             </ul>
             <p>Best regards,<br>Your Course Management System</p>
             <br>
             <footer>
-            <small>Developed by Manuel Corporan
-            </small>
+            <small>Developed by Manuel Corporan</small>
             <br>
-            <small>Copyright © 2024 Mcdev92. All rights reserved.
+            <small>Copyright © 2024 Mcdev92. All rights reserved.</small>
             </footer>
             </body>
             </html>
@@ -138,6 +144,7 @@ def notify_upcoming_assignments():
             """)
     except Exception as e:
         print(f"Error notifying assignments: {str(e)}")
+
         
 def send_email(subject, body):
     try:
@@ -154,6 +161,7 @@ def send_email(subject, body):
         server.quit()
     except smtplib.SMTPException as e:
         print(f"Error sending email: {e}")
+        
 # Initial call to fetch and display assignments
 notify_upcoming_assignments()
 
